@@ -78,13 +78,12 @@ INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', '
 
 ### Deliverables
 
-- The Dockerfile you created. Make sure to include key configurations like `CMD`, `ENTRYPOINT`, and volume settings.
 - Screenshots of the terminal output showing:
-  - The Dockerfile used.
-  - The Docker image being built.
-  - The Docker container being started, including the command you ran.
-  - The logs showing that PostgreSQL is running without errors.
-  - The output of `SELECT * FROM users;` confirming that the database is running and contains the sample data.
+  - [35pts] The Dockerfile used.
+  - [20pts] The Docker image being built, including the command you ran.
+  - [20pts] The Docker container being started, including the command you ran.
+  - [12pts] The logs showing that PostgreSQL is running without errors.
+  - [13pts] The output of `SELECT * FROM users;` confirming that the database is running and contains the sample data.
 
 ### Bonus
 - [Research, 10pts] Do some research on how to pass secrets to containers and identify a more secure way of passing secrets to containers.
