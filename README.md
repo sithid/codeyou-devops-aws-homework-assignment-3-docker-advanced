@@ -23,8 +23,13 @@ You will create a Dockerfile that builds an image for running a PostgreSQL datab
 - Use a custom SQL script (`init.sql`) to set up a database. This script should be copied into the container at `/docker-entrypoint-initdb.d/`. This directory is automatically used by PostgreSQL for running initialization scripts on first run. The database should contain at least one table with some sample data.
 - Define a **VOLUME** to store PostgreSQL data as explained in the official documentation.
 - **EXPOSE** port `5432` (the default PostgreSQL port).
-- Use **CMD** to specify the default command for starting PostgreSQL.
-- Set environment variables in the Dockerfile to configure logging and connection settings: `POSTGRESQL_LOG_CONNECTIONS`, `POSTGRESQL_LOG_DISCONNECTIONS`, and `POSTGRESQL_MAX_CONNECTIONS`. Make sure these are properly set to ensure proper logging and manage the number of concurrent connections. You can find further information on these environment variables on the official documentation for the Bitnami PostgreSQL image listed above.
+- Use **CMD** to specify the default command for starting PostgreSQL and add an **ENTRYPOINT** statement:
+  - The `ENTRYPOINT` should call the `/opt/bitnami/scripts/postgresql/entrypoint.sh` script.
+  - The `CMD` statement should call the `/opt/bitnami/scripts/postgresql/run.sh` script.
+- Set environment variables in the Dockerfile to configure logging and connection settings: `POSTGRESQL_LOG_CONNECTIONS`, `POSTGRESQL_LOG_DISCONNECTIONS`, and `POSTGRESQL_MAX_CONNECTIONS`. Make sure these are properly set to ensure proper logging and manage the number of concurrent connections:
+  - `POSTGRESQL_LOG_CONNECTIONS` should be set to true.
+  - `POSTGRESQL_LOG_DISCONNECTIONS` should be set to true.
+  - `POSTGRESQL_MAX_CONNECTIONS` should be set to 5. Make sure these are properly set to ensure proper logging and manage the number of concurrent connections. You can find further information on these environment variables on the official documentation for the Bitnami PostgreSQL image listed above.
 
 #### Example Structure of `init.sql`
 
@@ -57,7 +62,7 @@ INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', '
    - Run a container using the image you built. Make sure to:
      - Publish the appropriate ports to allow external access to PostgreSQL.
      - Run the container in the background (`-d` flag).
-     - Mount a volume to ensure that your PostgreSQL data persists between container restarts. Make sure to specify a named volume  avoid confusion about how to implement persistence.
+     - Mount a volume to ensure that your PostgreSQL data persists between container restarts. Make sure to specify a named volume to avoid confusion about how to implement persistence. For example, you can use `-v pgdata:/bitnami/postgresql` to specify a named volume.
 
 3. **Confirm the Setup**
 
@@ -71,7 +76,7 @@ INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', '
 
 ### Deliverables
 
-- The Dockerfile you created.
+- The Dockerfile you created. Make sure to include key configurations like `CMD`, `ENTRYPOINT`, and volume settings.
 - Screenshots of the terminal output showing:
   - The Dockerfile used.
   - The Docker image being built.
@@ -79,9 +84,10 @@ INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', '
   - The logs showing that PostgreSQL is running without errors.
   - The output of `SELECT * FROM users;` confirming that the database is running and contains the sample data.
 
-### Bonus Task
-
-- Add an environment variable to set a custom PostgreSQL password using the **ENV** directive in the Dockerfile.
+### Bonus
+- [Research, 10pts] Do some research on how to pass secrets to containers and identify a more secure way of passing secrets to containers.
+  - [5pts] Type up your suggestions, explaining in your own words to the best of your understanding. Quality over quantity is important.
+  - [5pts] Implement a secure password solution and provide a screenshot demonstrating it.
 
 **Good luck, and happy containerizing!**
 
