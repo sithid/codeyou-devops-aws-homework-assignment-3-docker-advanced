@@ -73,6 +73,8 @@ INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', '
      docker exec -it postgres-container psql -U postgres -d sampledb
      ```
    - Run the command `SELECT * FROM users;` to verify the table and data.
+   - **Optional**: You're welcome to also use VSCode extension to connect to the postgres instance
+        - You can refer to [these docs](./docs_on_vscode_extension.md) for how to use the extension if you'd like to, but you're not obligated to do so
 
 ### Deliverables
 
