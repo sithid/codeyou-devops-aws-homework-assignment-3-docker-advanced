@@ -30,6 +30,7 @@ You will create a Dockerfile that builds an image for running a PostgreSQL datab
   - `POSTGRESQL_LOG_CONNECTIONS` should be set to true.
   - `POSTGRESQL_LOG_DISCONNECTIONS` should be set to true.
   - `POSTGRESQL_MAX_CONNECTIONS` should be set to 5. Make sure these are properly set to ensure proper logging and manage the number of concurrent connections. You can find further information on these environment variables on the official documentation for the Bitnami PostgreSQL image listed above.
+- Look at the documentation at [https://hub.docker.com/r/bitnami/postgresql](https://hub.docker.com/r/bitnami/postgresql) for details on the environment variables listed. You'll need to use one of these environment variables to set a password for the created user, this will allow you to connect to the postgres database later in Part 2 so you can get your last Deliverable screenshot.
 
 #### Example Structure of `init.sql`
 
